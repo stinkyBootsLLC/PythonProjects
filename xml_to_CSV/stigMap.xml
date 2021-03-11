@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<data>
+	<item>
+		<STIGID>IIST-SI-000201</STIGID>
+		<legacyGroupID>V-100191</legacyGroupID>
+		<LegacyRuleID>SV-109295</LegacyRuleID>
+		<OldRuleID>SV-109295r1_rule</OldRuleID>
+		<NewGroupID>V-218735</NewGroupID>
+		<NewRuleID>SV-218735r558649_rule</NewRuleID>
+	</item>
+	<item>
+		<STIGID>IIST-SI-000202</STIGID>
+		<legacyGroupID>V-100193</legacyGroupID>
+		<LegacyRuleID>SV-109297</LegacyRuleID>
+		<OldRuleID>SV-109297r1_rule</OldRuleID>
+		<NewGroupID>V-218736</NewGroupID>
+		<NewRuleID>SV-218736r558649_rule</NewRuleID>
+	</item>
+	<item>
+		<STIGID>IIST-SI-000203</STIGID>
+		<legacyGroupID>V-100195</legacyGroupID>
+		<LegacyRuleID>SV-109299</LegacyRuleID>
+		<OldRuleID>SV-109299r2_rule</OldRuleID>
+		<NewGroupID>V-218737</NewGroupID>
+		<NewRuleID>SV-218737r558649_rule</NewRuleID>
+	</item>
+	<item>
+		<STIGID>IIST-SI-000204</STIGID>
+		<legacyGroupID>V-100197</legacyGroupID>
+		<LegacyRuleID>SV-109301</LegacyRuleID>
+		<OldRuleID>SV-109301r2_rule</OldRuleID>
+		<NewGroupID>V-218738</NewGroupID>
+		<NewRuleID>SV-218738r558649_rule</NewRuleID>
+	</item> 
+</data>
