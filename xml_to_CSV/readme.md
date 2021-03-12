@@ -52,6 +52,7 @@
 
 ## How it works
 Run the .py file from local directory and follow instructions on the console. Thats it!
+**Note:**".ckl" must follow the same tree structure as "example.ckl" in this repository
 
 ## License
 MIT
