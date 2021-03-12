@@ -32,7 +32,9 @@
 - Status
 - Detail
 - Comment
-	Note: V-id, Severity and Title are combined to one string
+	
+	
+**Note:** V-id, Severity and Title are combined to one string
 
 
 #### make_csv_file(fileName,list):
