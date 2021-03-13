@@ -32,7 +32,7 @@ on the console. **Note:** Use (example.ckl) as a test input file.
 
 Must have Python 3.8 installed on host machine. Get [Python](https://www.python.org/downloads) 
 
-## Versioning
+## Version
 
 1.0
 
