@@ -19,17 +19,14 @@ These instructions will get you a copy of the project up and running on your loc
 for development and testing purposes.  
 
 - Download this repository to your local machine. The XML (.ckl) file must be in the same directory
-as the (.py) file.
+as the (.py) file. 
 - Run the .py file from local directory and follow instructions 
-on the console.
-- the extension of the file DOES NOT MATTER as long as the file is a properly XML formatted file.
-- The input file will have the .ckl extension.
+on the console. **Note:** Use (example.ckl) as a test input file.
+- The extension of the file DOES NOT MATTER as long as the file is a properly XML formatted file.
 - The output file name can be anything you want - I like .txt to keep it simple
-- Note:".ckl" must follow the same tree structure as "example.ckl" in this repository
-- Once the program is complete, use Excel to IMPORT the newly created file. (The one you named)
+- ".ckl" must follow the same tree structure as "example.ckl" in this repository
 - Once the program is complete, use Excel (or any other spreadsheet program) to IMPORT the newly created file. 
-(The one you named)
-- Use the (|) character as the delimiter.
+(The one you named) **Note:** Use the (|) character as the delimiter.
 
 ### Prerequisites
 
