@@ -32,13 +32,20 @@ on the console. **Note:** Use (example.ckl) as a test input file.
 
 Must have Python 3.8 installed on host machine. Get [Python](https://www.python.org/downloads) 
 
+## Versioning
+
+1.0
+
+## Author
+
+Eduardo Estrada | Created Date: 3/11/2021
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://www.mit.edu/~amini/LICENSE.md) file for details
 
 ## Acknowledgments
 
-*  Author: Eduardo Estrada
-*  Created Date: 3/11/2021
+*  NONE
 
 
