@@ -87,6 +87,7 @@ def get_ckList_info(file_name):
 			final_list.append(row)
 
 	except Exception as e:
+		print("There was an error please check log file")
 		logging.error(e)
 	finally:
 		logging.info('Stig data results size: {}'.format(len(stig_data_results)))
