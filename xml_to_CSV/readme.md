@@ -30,9 +30,7 @@ on the console. **Note:** Use (example.ckl) as a test input file.
 
 ### Prerequisites
 
-Must have Python 3.8 installed on host machine.
-
-Get [Python](https://www.python.org/downloads) 
+Must have Python 3.8 installed on host machine. Get [Python](https://www.python.org/downloads) 
 
 ## License
 
@@ -40,6 +38,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+*  | Author: | Eduardo Estrada|
+*  | Created Date: | 3/11/2021 |
+
+
