@@ -34,11 +34,11 @@ Must have Python 3.8 installed on host machine. Get [Python](https://www.python.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://www.mit.edu/~amini/LICENSE.md) file for details
 
 ## Acknowledgments
 
-*  | Author: | Eduardo Estrada|
-*  | Created Date: | 3/11/2021 |
+*  Author: Eduardo Estrada
+*  Created Date: 3/11/2021
 
 
