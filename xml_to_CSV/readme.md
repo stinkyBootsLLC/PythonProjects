@@ -62,14 +62,9 @@ Run the .py file from local directory and follow instructions on the console.
 Once the program is complete, use Excel to IMPORT the newly created file. (The one you named)
 - Use the (|) character as the delimiter.
 
-| V-id     | Severity | Title                  | Status      | Detail          | Comment             |
-| -----    | ---------| -----------------------| ------------| ----------------|  -------------------|
+| V-id     | Severity |         Title          | Status      |     Detail      |      Comment        |
+| ---------| ---------| -----------------------| ------------| ----------------|  -------------------|
 | V-123456 | low      | Title of vulnerability | NotAFinding |settings not set | working of solution!
-
-
-
-
-
 
 
 
