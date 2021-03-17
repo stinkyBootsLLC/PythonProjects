@@ -3,33 +3,34 @@ File Name:
 Created Date: 3/11/2021
 Author: Eduardo Estrada
 Purpose: To extract certain attribute values from the STIG VIEWER .ckl file for reports
+
 """
 # Importing the required libraries 
 import logging
 import xml.etree.ElementTree as Xet 
+import re
  
  
 def get_ckList_info(file_name):
 	"""
 	Returns a list of the following attributes from the specific stig-viewer
 	xml file.
-
-	"V-id|Severity|Title|Status|Detail|Comment" <- one item in the list
-	Note: V-id|Severity|Title are combined to one string
-
+ 
 	Parameters
     ----------
     file_name : string
        	name of the xml file
     Returns
     -------
-    List
+    final_list: List
         list of attribute values from the xml file
 	"""
 
 	logging.info('get_ckList_info() Started')
 	# method local variables	
-	stig_data_results = []
+	stig_vulNum_results = []
+	stig_title_results = []
+	stig_sevirity_results = []
 	stig_status_results = []
 	stig_findingDetails_results = []
 	stig_comments_results = []
@@ -43,7 +44,7 @@ def get_ckList_info(file_name):
 		stigFindingDetails = tree.findall('STIGS/iSTIG/VULN')
 		stigComments = tree.findall('STIGS/iSTIG/VULN')
 		# file header row
-		header = "V-id|Severity|Title|Status|Detail|Comment"
+		header = "V-id,Title, Severity, Status, Detail, Comment"
 		final_list.append(header)
 		# get all stig data 
 		for data in stigData:
@@ -51,14 +52,18 @@ def get_ckList_info(file_name):
 			if Vuln_Attr == 'Vuln_Num':
 				# then get the attribute
 				vuln_id = data.find('ATTRIBUTE_DATA').text
+				stig_vulNum_results.append(vuln_id)
 			if Vuln_Attr == 'Severity':
 				# then get the attribute
 				vuln_seve = data.find('ATTRIBUTE_DATA').text
+				stig_sevirity_results.append(vuln_seve)
 			if Vuln_Attr == 'Rule_Title':
 				# then get the attribute
 				vuln_title = data.find('ATTRIBUTE_DATA').text
-				sentence = "{}|{}|{}".format(vuln_id, vuln_seve, vuln_title)
-				stig_data_results.append(sentence)
+				cleanTitle = re.sub(r'[^\w]', ' ', str(vuln_title))
+				stig_title_results.append(cleanTitle)
+				# sentence = "{}|{}|{}".format(vuln_id, vuln_seve, vuln_title)
+				# stig_data_results.append(sentence)
 		# get all status
 		for data in stigStatus:
 			Vuln_Stat = data.find('STATUS').text
@@ -66,31 +71,38 @@ def get_ckList_info(file_name):
 		# get all finding details
 		for data in stigFindingDetails:
 			find_details = data.find('FINDING_DETAILS').text
-			stig_findingDetails_results.append(find_details)
+			cleanDetail = re.sub(r'[^\w]', ' ', str(find_details))
+			stig_findingDetails_results.append(cleanDetail)
 		# get all comments
 		for data in stigComments:
 			find_details = data.find('COMMENTS').text
 			stig_comments_results.append(find_details)
 		# create a dictionary /hashmap /not being used yet
 		# for future use try to create JSON format
-		temp_dict["ID_Title"] =  stig_data_results
-		temp_dict["Status"] =  stig_status_results
-		temp_dict["Details"] =  stig_findingDetails_results
-		temp_dict["Comments"] =  stig_comments_results
+		# temp_dict["ID_Title"] =  stig_data_results
+		# temp_dict["Status"] =  stig_status_results
+		# temp_dict["Details"] =  stig_findingDetails_results
+		# temp_dict["Comments"] =  stig_comments_results
 		# combine the four list into the final list
 		for i in range(len(stig_findingDetails_results)):
-			col1 = stig_data_results[i]
-			col2 = stig_status_results[i]
-			col3 = stig_findingDetails_results[i]
-			col4 = stig_comments_results[i]
-			row = "{}|{}|{}|{}".format(col1, col2, col3, col4 )
-			final_list.append(row)
+			id = stig_vulNum_results[i]
+			title = stig_title_results[i]
+			sevirity = stig_sevirity_results[i]
+			status = stig_status_results[i]
+			detail = stig_findingDetails_results[i]
+			comment = stig_comments_results[i]
+			# "V-id,Title, Severity, Status, Detail, Comment"
+			row = '"{}", "{}", "{}", "{}", "{}", "{}"'.format(
+				id, title, sevirity, status,detail,comment )
 
+			final_list.append(row)
 	except Exception as e:
 		print("There was an error please check log file")
 		logging.error(e)
 	finally:
-		logging.info('Stig data results size: {}'.format(len(stig_data_results)))
+		logging.info('Stig status vulNum size: {}'.format(len(stig_vulNum_results)))
+		logging.info('Stig Title results size: {}'.format(len(stig_title_results)))
+		logging.info('Stig sevirity results size: {}'.format(len(stig_sevirity_results)))
 		logging.info('Stig status results size: {}'.format(len(stig_status_results)))
 		logging.info('Stig finding details results size: {}'.format(len(stig_findingDetails_results)))
 		logging.info('Stig comments results size: {}'.format(len(stig_comments_results)))
