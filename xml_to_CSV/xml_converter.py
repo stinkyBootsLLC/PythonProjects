@@ -2,7 +2,7 @@
 File Name:
 Created Date: 3/11/2021
 Author: Eduardo Estrada
-Purpose: To extract certain attribute values from the STIG VIEWER .ckl file for reports
+Purpose: To extract certain tag values from the STIG VIEWER .ckl file for reports
 
 """
 # Importing the required libraries 
@@ -10,6 +10,27 @@ import logging
 import xml.etree.ElementTree as Xet 
 import re
  
+def get_tag_values(xmlTree, tagName):
+	"""
+	Creates a delimited file in this current directory based on the parameter
+	list. In this script the delimiter is the pipe (|) character.
+		Parameters
+    ----------
+    xmlTree : ElementTree
+       	xml elements
+	tagName : string
+		xml tag name	   
+    Returns
+    -------
+    values_list: List
+        List of values
+	"""	
+	values_list = []
+	for element in xmlTree:
+		value = element.find(tagName).text
+		clean_value = re.sub(r'[^\w]', ' ', str(value))
+		values_list.append(clean_value)
+	return values_list
  
 def get_ckList_info(file_name):
 	"""
@@ -34,7 +55,6 @@ def get_ckList_info(file_name):
 	stig_status_results = []
 	stig_findingDetails_results = []
 	stig_comments_results = []
-	temp_dict = {}
 	final_list = []
 
 	try:
@@ -62,28 +82,14 @@ def get_ckList_info(file_name):
 				vuln_title = data.find('ATTRIBUTE_DATA').text
 				cleanTitle = re.sub(r'[^\w]', ' ', str(vuln_title))
 				stig_title_results.append(cleanTitle)
-				# sentence = "{}|{}|{}".format(vuln_id, vuln_seve, vuln_title)
-				# stig_data_results.append(sentence)
+				 
 		# get all status
-		for data in stigStatus:
-			Vuln_Stat = data.find('STATUS').text
-			stig_status_results.append(Vuln_Stat)
+		stig_status_results = get_tag_values(stigStatus, 'STATUS')
 		# get all finding details
-		for data in stigFindingDetails:
-			find_details = data.find('FINDING_DETAILS').text
-			cleanDetail = re.sub(r'[^\w]', ' ', str(find_details))
-			stig_findingDetails_results.append(cleanDetail)
+		stig_findingDetails_results = get_tag_values(stigFindingDetails, 'FINDING_DETAILS')
 		# get all comments
-		for data in stigComments:
-			find_details = data.find('COMMENTS').text
-			stig_comments_results.append(find_details)
-		# create a dictionary /hashmap /not being used yet
-		# for future use try to create JSON format
-		# temp_dict["ID_Title"] =  stig_data_results
-		# temp_dict["Status"] =  stig_status_results
-		# temp_dict["Details"] =  stig_findingDetails_results
-		# temp_dict["Comments"] =  stig_comments_results
-		# combine the four list into the final list
+		stig_comments_results = get_tag_values(stigComments, 'COMMENTS')
+		# combine everything
 		for i in range(len(stig_findingDetails_results)):
 			id = stig_vulNum_results[i]
 			title = stig_title_results[i]
@@ -94,7 +100,6 @@ def get_ckList_info(file_name):
 			# "V-id,Title, Severity, Status, Detail, Comment"
 			row = '"{}", "{}", "{}", "{}", "{}", "{}"'.format(
 				id, title, sevirity, status,detail,comment )
-
 			final_list.append(row)
 	except Exception as e:
 		print("There was an error please check log file")
@@ -108,7 +113,7 @@ def get_ckList_info(file_name):
 		logging.info('Stig comments results size: {}'.format(len(stig_comments_results)))
 
 		return final_list
-
+ 
 def make_csv_file(fileName,list):
 	"""
 	Creates a delimited file in this current directory based on the parameter
@@ -151,7 +156,6 @@ def main():
 	make_csv_file(outputFileName,checkList)
 	logging.info('Application is finished')
 	
-
 if __name__ == "__main__": 
 	print("Welcome to the my xml parser") 
 	print("File inputs must be in XML format\n") 
