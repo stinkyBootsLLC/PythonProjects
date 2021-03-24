@@ -16,8 +16,7 @@ def get_ckList_info(file_name):
 	Returns a list of the following attributes from the specific stig-viewer
 	xml file.
 
-	"V-id|Severity|Title|Status|Detail|Comment" <- one item in the list
-	Note: V-id|Severity|Title are combined to one string
+	"vulnID | Severity | Title | Status | Detail | Comment"   
 
 	Parameters
     ----------
@@ -48,8 +47,8 @@ def get_ckList_info(file_name):
 		stigFindingDetails = tree.findall('STIGS/iSTIG/VULN')
 		stigComments = tree.findall('STIGS/iSTIG/VULN')
 		#  
-		header = '{'
-		footer = '}'
+		header = '{ "vulnerabilities": ['
+		footer = ']}'
 		final_list.append(header)
 		# get all stig data 
 		for data in stigData:
@@ -94,8 +93,8 @@ def get_ckList_info(file_name):
 			status = stig_status_results[i]
 			detail = stig_findingDetails_results[i]
 			comment = stig_comments_results[i]
-			row = '"VULN{}": [ {{ "vulnID": "{}" }},{{ "Title": "{}" }},{{ "severity": "{}" }},{{ "Status": "{}" }},{{ "Detail": "{}" }},{{ "Comment": "{}" }}],'.format(
-				i,id, title, sevirity, status,detail,comment )
+			row = '{{ "vulnID": "{}", "Title": "{}", "severity": "{}","Status": "{}","Detail": "{}","Comment": "{}" }},'.format(
+				id, title, sevirity, status,detail,comment )
 			final_list.append(row)
 
 		final_list.append(footer)
