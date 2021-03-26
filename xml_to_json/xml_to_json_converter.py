@@ -30,14 +30,12 @@ def get_ckList_info(file_name):
 
 	logging.info('get_ckList_info() Started')
 	# method local variables
-	# 
 	stig_vulNum_results = []
 	stig_title_results = []
 	stig_sevirity_results = []
 	stig_status_results = []
 	stig_findingDetails_results = []
 	stig_comments_results = []
-	# temp_dict = {}
 	final_list = []
 
 	try:
@@ -46,7 +44,7 @@ def get_ckList_info(file_name):
 		stigStatus = tree.findall('STIGS/iSTIG/VULN')
 		stigFindingDetails = tree.findall('STIGS/iSTIG/VULN')
 		stigComments = tree.findall('STIGS/iSTIG/VULN')
-		#  
+		# Creating JSON format 
 		header = '{ "vulnerabilities": ['
 		footer = ']}'
 		final_list.append(header)
@@ -79,13 +77,7 @@ def get_ckList_info(file_name):
 		for data in stigComments:
 			find_details = data.find('COMMENTS').text
 			stig_comments_results.append(find_details)
-		# # create a dictionary /hashmap /not being used yet
-		# # for future use try to create JSON format
-		# temp_dict["ID_Title"] =  stig_data_results
-		# temp_dict["Status"] =  stig_status_results
-		# temp_dict["Details"] =  stig_findingDetails_results
-		# temp_dict["Comments"] =  stig_comments_results
-		# combine the four list into the final list
+
 		for i in range(len(stig_findingDetails_results)):
 			id = stig_vulNum_results[i]
 			title = stig_title_results[i]
@@ -102,7 +94,8 @@ def get_ckList_info(file_name):
 		print("There was an error please check log file")
 		logging.error(e)
 	finally:
-	 
+	    # log the list sizes, this will be helpful for troubleshooting
+		# all the final lists must be the same size
 		logging.info('Stig status vulNum size: {}'.format(len(stig_vulNum_results)))
 		logging.info('Stig Title results size: {}'.format(len(stig_title_results)))
 		logging.info('Stig sevirity results size: {}'.format(len(stig_sevirity_results)))
@@ -112,7 +105,7 @@ def get_ckList_info(file_name):
 
 		return final_list
 
-def make_csv_file(fileName,list):
+def make_json_file(fileName,list):
 	"""
 	Creates a file
 		Parameters
@@ -126,7 +119,7 @@ def make_csv_file(fileName,list):
     Void
         Makes the file in the current directory
 	"""
-	logging.info('Making CSV Started')	
+	logging.info('Making JSON Started')	
 	# write once
 	with open(fileName, 'w') as filehandle:
 		for item in list:
@@ -150,7 +143,7 @@ def main():
 	# parse the xml file
 	checkList = get_ckList_info(inputFileName)
 	# create a deliminated file.
-	make_csv_file(outputFileName,checkList)
+	make_json_file(outputFileName,checkList)
 	logging.info('Application is finished')
 	
 
