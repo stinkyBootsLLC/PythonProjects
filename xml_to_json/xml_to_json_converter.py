@@ -2,19 +2,40 @@
 File Name:
 Created Date: 3/11/2021
 Author: Eduardo Estrada
-Purpose: To extract certain attribute values from the STIG VIEWER .ckl file for reports
+Purpose: To extract certain <tag> values from the STIG VIEWER .ckl file for reports
 """
 # Importing the required libraries 
 import logging
 import json
 import xml.etree.ElementTree as Xet 
 import re
- 
+
+def get_tag_values(xmlTree, tagName):
+	"""
+	Returns a List of values from a tag name.
+	
+	Parameters
+    ----------
+    xmlTree : ElementTree
+       	xml elements
+	tagName : string
+		xml tag name	   
+    Returns
+    -------
+    values_list: List
+        List of <tag> values </tag>
+	"""	
+	values_list = []
+	for element in xmlTree:
+		value = element.find(tagName).text
+		clean_value = re.sub(r'[^\w]', ' ', str(value))
+		values_list.append(clean_value)
+	return values_list 
  
 def get_ckList_info(file_name):
 	"""
-	Returns a list of the following attributes from the specific stig-viewer
-	xml file.
+	Returns a list of the following tag values from the specific stig-viewer
+	xml (.ckl) file.
 
 	"vulnID | Severity | Title | Status | Detail | Comment"   
 
@@ -64,20 +85,15 @@ def get_ckList_info(file_name):
 				vuln_title = data.find('ATTRIBUTE_DATA').text
 				cleanTitle = re.sub(r'[^\w]', ' ', str(vuln_title))
 				stig_title_results.append(cleanTitle)
-		# get all status
-		for data in stigStatus:
-			Vuln_Stat = data.find('STATUS').text
-			stig_status_results.append(Vuln_Stat)
-		# get all finding details
-		for data in stigFindingDetails:
-			find_details = data.find('FINDING_DETAILS').text
-			cleanDetail = re.sub(r'[^\w]', ' ', str(find_details))
-			stig_findingDetails_results.append(cleanDetail)
-		# get all comments
-		for data in stigComments:
-			find_details = data.find('COMMENTS').text
-			stig_comments_results.append(find_details)
 
+		# get all status
+		stig_status_results = get_tag_values(stigStatus, 'STATUS')
+		# get all finding details
+		stig_findingDetails_results = get_tag_values(stigFindingDetails, 'FINDING_DETAILS')
+		# get all comments
+		stig_comments_results = get_tag_values(stigComments, 'COMMENTS')
+
+		# combine everything
 		for i in range(len(stig_findingDetails_results)):
 			id = stig_vulNum_results[i]
 			title = stig_title_results[i]
@@ -108,7 +124,8 @@ def get_ckList_info(file_name):
 def make_json_file(fileName,list):
 	"""
 	Creates a file
-		Parameters
+	
+	Parameters
     ----------
     fileName : string
        	name of the output file
@@ -130,7 +147,6 @@ def main():
 	"""
 	Main entry to application
 	"""
-
 	logging.basicConfig(filename='App.log', filemode='a',
 		format='%(asctime)s - %(msecs)d - %(name)s - %(levelname)s - %(message)s',
 		datefmt='%Y-%m-%d - %H:%M:%S',level=logging.INFO)
