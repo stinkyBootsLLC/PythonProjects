@@ -31,7 +31,7 @@ as the (.py) file.
 - Run the .py file from local directory and follow instructions 
 on the console. **Note:** Use (example.ckl) as a test input file.
 - The extension of the file DOES NOT MATTER as long as the file is a properly XML formatted file.
-- The output file name can be anything you want - I like .csv to keep it simple
+- The output file name can be anything you want - I like .json to keep it simple
 - ".ckl" must follow the same tree structure as "example.ckl" in this repository
 - Once the program is complete, use Excel (or any other spreadsheet program) to IMPORT the newly created file. 
 (The one you named).
