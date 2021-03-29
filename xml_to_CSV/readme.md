@@ -1,6 +1,6 @@
 # STIG Checklist Value Extractor
 
-> Purpose: To extract certain attribute values from 
+> Purpose: To extract certain tag values from 
 the [STIG VIEWER](https://public.cyber.mil/stigs/srg-stig-tools/) .ckl file for creating reports.
 I wanted to extract specific values from the STIG Viewer application checklist (.ckl) file, 
 to use for creating reports. 
