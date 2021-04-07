@@ -33,7 +33,7 @@ on the console. **Note:** Use (example.ckl) as a test input file.
 - The extension of the file DOES NOT MATTER as long as the file is a properly XML formatted file.
 - The output file name can be anything you want - I like .json to keep it simple
 - ".ckl" must follow the same tree structure as "example.ckl" in this repository
-- Once the program is complete, the new JSON file will be available in the current working directory (The one you named).
+- Once the program is complete, the new JSON file (The OUTPUT FILE) will be available in the current working directory.
 
 ### Prerequisites
 
