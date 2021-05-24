@@ -49,7 +49,7 @@ Eduardo Estrada | Created Date: 3/11/2021
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://www.mit.edu/~amini/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/stinkyBootsLLC/BankRegister/blob/master/license.md) file for details
 
 ## Acknowledgments
 
