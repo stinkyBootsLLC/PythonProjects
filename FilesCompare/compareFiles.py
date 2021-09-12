@@ -34,7 +34,6 @@ def compare_two_files(file_1_name, file_2_name, output_file_name):
     # get each line from each file
     file_1_line = file_1.readline()
     file_2_line = file_2.readline()
-
     # Use as a Counter for the line number
     line_no = 1
     # open the input files
@@ -64,7 +63,6 @@ def compare_two_files(file_1_name, file_2_name, output_file_name):
                     file_out.write("@ Line " + str(line_no) + " " + file_1_line + "\n")
                 else:
                     file_out.write("@ Line " + str(line_no) + " " + file_1_line + "\n")
-                    
                 # otherwise output the line on file2 and use # sign
                 if file_2_line == '':
                     file_out.write("# Line " + str(line_no) + " " + file_2_line + "\n")
