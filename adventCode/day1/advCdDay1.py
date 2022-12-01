@@ -3,7 +3,8 @@
 File Name: advCdDay1.py
 Created Date: 12/1/2022
 Author: Eduardo Estrada
-Purpose: https://adventofcode.com/2022/day/1 --- Day 1: Calorie Counting ---
+Purpose: https://adventofcode.com/2022/day/1 
+--- Day 1: Calorie Counting ---
 (anonymous user #2449475)
 --- Part One ---
 Find the Elf carrying the most Calories. 
