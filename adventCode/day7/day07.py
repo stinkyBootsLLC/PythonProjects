@@ -8,29 +8,11 @@
  
       
 """
-
-# def get_marker(datastream, amount_of_diff_chars):
-
-#     marker = 0 
-#     pointer = 0
-
-#     while True:
-#         packet = datastream[pointer:(pointer + amount_of_diff_chars)]
-            
-#         has_repeated_chars = len(set(packet)) != len(packet)
-#         if not has_repeated_chars:
-#             marker = (pointer + amount_of_diff_chars)
-#             break
-
-#         pointer += 1
-
-#     return marker
+ 
 
 with open('input.txt', 'r', encoding="utf-8") as f:
     data = {}
-    cmd = []
-    dir = []
-    files = []
+   
     lines = f.readlines()
     # parse input file
     for line in lines:
