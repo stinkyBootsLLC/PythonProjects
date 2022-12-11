@@ -8,11 +8,23 @@
  
       
 """
+def get_dir_total(dict, key):
+    a = 0
+    contents = dict[key]
+    for x in contents:
+        if isinstance(x, int):
+            a += x
+    return a
 
+
+def get_values(dict, key):
+    return dict.get(key)
  
 def get_organized_drive(unorganized_drive):
+
     organized_drive = {}
     sum_of_all_files = 0
+
     for key, values in unorganized_drive.items():
         organized_drive[key] = []
         sum_of_dir = 0
@@ -25,7 +37,7 @@ def get_organized_drive(unorganized_drive):
                 sum_of_dir += int(size)
             else:
             # else its a directory
-                organized_drive[key].append(value[4:])
+                organized_drive[key].append(value)
         
         organized_drive[key].append(sum_of_dir)
         sum_of_all_files += sum_of_dir
@@ -33,68 +45,57 @@ def get_organized_drive(unorganized_drive):
     organized_drive["total"] = []
     organized_drive["total"].append(sum_of_all_files)
 
+    # add all the sizes for each directory
+    for key, directory in organized_drive.items():
+        for value in directory:
+            if isinstance(value, str):
+                if "dir" in value:
+                    x = get_values(organized_drive, value)
+                    for a in x:
+                        if isinstance(a, int):
+                            organized_drive[key].append(a)
+
+    # remove all strings and just leave integers
+    for key, directory in organized_drive.items():
+        organized_drive[key] = [x for x in directory if not isinstance(x, str)]
+
+    # return a dictionary of lists 
+    # each list will have size value. either a dir or a file, doesn't matter 
+    # ie. 'dir a' [size, size, size....]
     return organized_drive
-
- 
-def get_dir_total(dict, key):
-    a = 0
-    contents = dict[key]
-    for x in contents:
-        if isinstance(x, int):
-            a += x
-    return a
-
-
- 
-
-    # newDrive = {}
-   
-    # for key, content in dict.items():
-    #     # print(content)
-    #     for value in content:
-            
-    #         if isinstance(value, str):
-    #             # then its a drive
-    #             # find the drives content
-    #             if value != '/':
-    #                 print(value)
-
-    #                 newDrive[value] = []
-    #                 for x in dict[value]:
-    #                     if isinstance(x, int):
-    #                         newDrive[value].append(x)
-                             
-
-    # print(newDrive)         
-
-
-
+# get the puzzle input
 with open('input.txt', 'r', encoding="utf-8") as f:
+
     data = {}
    
     lines = f.readlines()
     # parse input file
     for line in lines:
-        
-        if "$ cd" in line.strip():
-
-            if "$ cd .." not in line.strip():  
-                location = line[5:].strip()
-                # print(location)
+        if "$ cd .." not in line.strip():
+            if "$ cd" in line.strip():  
+                location = "dir " + line[5:].strip()
                 data[location] = []
-
-        if "$ ls" not in line.strip(): 
-            if "$ cd " not in line.strip():
-                # print(line.strip())
+            if "$" not in line.strip():
                 data[location].append(line.strip())
-             
-
+          
     # determine the total size of each directory 
     drive = get_organized_drive(data)
     # # determine the total size of each directory
-    print(data)
-    print(drive) #organized by dir/
-     
+    # print(data)
+    '''
+    {
+        'dir /': [23352670, 94269, 24933642], 
+        'dir a': [94269, 584], 
+        'dir e': [584], 
+        'dir d': [24933642], 
+        'total': [48381165]
+    }
+    '''
+    print(drive)
+
+ 
+
+ 
   
 '''
     finalP1answer = 0
