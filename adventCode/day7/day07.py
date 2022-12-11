@@ -8,12 +8,69 @@
  
       
 """
-import re
+
+ 
+def get_organized_drive(unorganized_drive):
+    organized_drive = {}
+    sum_of_all_files = 0
+    for key, values in unorganized_drive.items():
+        organized_drive[key] = []
+        sum_of_dir = 0
+        for value in values:
+            found_file = any(char.isdigit() for char in value)
+            # found a file
+            if found_file:
+                # then get the size and name
+                size, name = value.split(" ")
+                sum_of_dir += int(size)
+            else:
+            # else its a directory
+                organized_drive[key].append(value[4:])
+        
+        organized_drive[key].append(sum_of_dir)
+        sum_of_all_files += sum_of_dir
+
+    organized_drive["total"] = []
+    organized_drive["total"].append(sum_of_all_files)
+
+    return organized_drive
+
+ 
+def get_dir_total(dict, key):
+    a = 0
+    contents = dict[key]
+    for x in contents:
+        if isinstance(x, int):
+            a += x
+    return a
+
+
+ 
+
+    # newDrive = {}
+   
+    # for key, content in dict.items():
+    #     # print(content)
+    #     for value in content:
+            
+    #         if isinstance(value, str):
+    #             # then its a drive
+    #             # find the drives content
+    #             if value != '/':
+    #                 print(value)
+
+    #                 newDrive[value] = []
+    #                 for x in dict[value]:
+    #                     if isinstance(x, int):
+    #                         newDrive[value].append(x)
+                             
+
+    # print(newDrive)         
+
+
 
 with open('input.txt', 'r', encoding="utf-8") as f:
     data = {}
-    drive = {}
-    sum_of_all_files = 0
    
     lines = f.readlines()
     # parse input file
@@ -31,35 +88,41 @@ with open('input.txt', 'r', encoding="utf-8") as f:
                 # print(line.strip())
                 data[location].append(line.strip())
              
-    # determine the total size of each directory 
-    for key, values in data.items():
 
-        drive[key] = []
-        sum_of_dir = 0
+    # determine the total size of each directory 
+    drive = get_organized_drive(data)
+    # # determine the total size of each directory
+    print(data)
+    print(drive) #organized by dir/
+     
+  
+'''
+    finalP1answer = 0
+    for key, values in drive.items():
+
+        k = key
+        a = 0
 
         for value in values:
             
-            found_file = any(char.isdigit() for char in value)
-            # found a file
-            if found_file:
-                # then get the size and name
-                size, name = value.split(" ")
-                sum_of_dir += int(size)
-                
+            if isinstance(value, str):
+                # print(value)
+                # get the sum for that dir
+                # print()
+                # print('dir: {} {}'.format(value, drive[value]))
+                a += get_dir_total(drive, value)
             else:
-            # else its a directory
-                # print(key + value[-1])
-                drive[key].append(value[-1])
+                # total of files
+                a += value
         
-        drive[key].append(sum_of_dir)
-        sum_of_all_files += sum_of_dir
-        
+        # directories with a total size of at most 100000.
+        if a <= 100000:
+            finalP1answer += a
+            print('dir: {} {}'.format(k, a))
     
-    
-    # determine the total size of each directory
-    print(data)
-    print(drive)
-    print(sum_of_all_files)
+    print(finalP1answer)
+
+''' 
         
                 
      
