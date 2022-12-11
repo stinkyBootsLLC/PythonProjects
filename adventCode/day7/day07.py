@@ -40,10 +40,10 @@ def get_organized_drive(unorganized_drive):
                 organized_drive[key].append(value)
         
         organized_drive[key].append(sum_of_dir)
-        sum_of_all_files += sum_of_dir
+    #     sum_of_all_files += sum_of_dir
 
-    organized_drive["total"] = []
-    organized_drive["total"].append(sum_of_all_files)
+    # organized_drive["total"] = []
+    # organized_drive["total"].append(sum_of_all_files)
 
     # add all the sizes for each directory
     for key, directory in organized_drive.items():
@@ -63,6 +63,11 @@ def get_organized_drive(unorganized_drive):
     # each list will have size value. either a dir or a file, doesn't matter 
     # ie. 'dir a' [size, size, size....]
     return organized_drive
+
+ 
+
+
+
 # get the puzzle input
 with open('input.txt', 'r', encoding="utf-8") as f:
 
@@ -97,33 +102,22 @@ with open('input.txt', 'r', encoding="utf-8") as f:
 
  
   
-'''
+ 
     finalP1answer = 0
     for key, values in drive.items():
-
-        k = key
-        a = 0
-
-        for value in values:
+        a = sum(values)
+        # print(values)
+        # print(a)
+         
             
-            if isinstance(value, str):
-                # print(value)
-                # get the sum for that dir
-                # print()
-                # print('dir: {} {}'.format(value, drive[value]))
-                a += get_dir_total(drive, value)
-            else:
-                # total of files
-                a += value
-        
-        # directories with a total size of at most 100000.
+           
         if a <= 100000:
             finalP1answer += a
-            print('dir: {} {}'.format(k, a))
+            print('dir: {} {}'.format(key, a))
     
     print(finalP1answer)
 
-''' 
+ 
         
                 
      
