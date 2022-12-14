@@ -1,7 +1,0 @@
-Test
-=====
-
-.. _installation:
-
-Installation
-------------
