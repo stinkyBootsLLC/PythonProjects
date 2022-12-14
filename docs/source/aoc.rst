@@ -8,7 +8,7 @@ Day 1
 
 https://adventofcode.com/2022/day/1
 
-```(anonymous user #2449475)```
+``(anonymous user #2449475)``
 
 **Provided Puzzle list** 
 
