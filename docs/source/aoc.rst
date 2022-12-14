@@ -6,29 +6,29 @@ AoC
 Day 1
 ------------
 
-To use Lumache, first install it using pip:
+https://adventofcode.com/2022/day/1
+
+:man_dancing: Me ```(anonymous user #2449475)```
 
 .. code-block:: console
 
-   (.venv) $ pip install lumache
+   Provided Puzzle list calorieList.txt
 
-Creating recipes
-----------------
+### --- Day 1: Calorie Counting ---
 
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
+12/01/2022
 
-.. autofunction:: lumache.get_random_ingredients
+### --- Part One ---
 
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
+Find the Elf carrying the most Calories. 
+How many total Calories is that Elf carrying?
 
-.. autoexception:: lumache.InvalidKindError
+### --- Part Two ---
 
-For example:
+Find the top three Elves carrying the most Calories. 
+How many Calories are those Elves carrying in total?
 
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
+.. note::
+
+   This project is under active development.
 
