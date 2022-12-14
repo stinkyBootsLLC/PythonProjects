@@ -1,0 +1,7 @@
+Test
+=====
+
+.. _installation:
+
+Installation
+------------
