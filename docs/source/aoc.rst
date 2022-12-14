@@ -1,9 +1,9 @@
-AoC Advent Of Code
+AoC
 =====
 
-.. _installation:
+.. Advent Of Code:
 
-Installation
+Day 1
 ------------
 
 To use Lumache, first install it using pip:
