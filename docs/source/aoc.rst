@@ -8,22 +8,24 @@ Day 1
 
 https://adventofcode.com/2022/day/1
 
-:man_dancing: Me ```(anonymous user #2449475)```
+```(anonymous user #2449475)```
+
+**Provided Puzzle list** 
 
 .. code-block:: console
 
-   Provided Puzzle list calorieList.txt
+   calorieList.txt
 
-### --- Day 1: Calorie Counting ---
+--- **Day 1: Calorie Counting** ---
 
 12/01/2022
 
-### --- Part One ---
+--- **Part One** ---
 
 Find the Elf carrying the most Calories. 
 How many total Calories is that Elf carrying?
 
-### --- Part Two ---
+--- **Part Two** ---
 
 Find the top three Elves carrying the most Calories. 
 How many Calories are those Elves carrying in total?
