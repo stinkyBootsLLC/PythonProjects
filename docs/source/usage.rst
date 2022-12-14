@@ -1,4 +1,4 @@
-Usage
+AoC Advent Of Code
 =====
 
 .. _installation:
