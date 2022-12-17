@@ -2,51 +2,43 @@ import numpy as np
 
 
 def get_highest_scenic_score(lines):
+    
+    scenic_score = 0
     grid = [list(map(int, list(line))) for line in lines]
-
     rows = len(grid)
     columns = len(grid[0])
+    grid = np.array(grid) # numpy
+    movement_directions = [[0, 1], [0, -1], [1, 0], [-1, 0]] # right, left, down, up
 
-    grid = np.array(grid)
-    # right, left, down, up
-    movement_directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
-
-    scenic_score = 0
     for i in range(rows):
+
         for j in range(columns):
-            height = grid[i, j]
+
+            height = grid[i, j] # intersection
             score = 1
 
             # Scan in 4 directions
             for direction_i, direction_j in movement_directions:
+
                 ii, jj = i + direction_i, j + direction_j
                 distance = 0
 
                 while (0 <= ii < rows and 0 <= jj < columns) and grid[ii, jj] < height:
+
                     distance += 1
                     ii += direction_i
                     jj += direction_j
 
+                    # compensate when stopped inside the grid and current tree is >= height
                     if (0 <= ii < rows and 0 <= jj < columns) and grid[ii, jj] >= height:
+                        # include it
                         distance += 1
 
                 score *= distance
 
             scenic_score = max(scenic_score, score)
 
-
     return scenic_score   
-
-
-
-
-
-
-
-
-
-
-
 
 
 def get_visible_trees_from_outside_grid(lines):
