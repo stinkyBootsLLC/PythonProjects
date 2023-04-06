@@ -54,7 +54,7 @@ def login_remote_location(username, password, nextcloud_client, logger):
     """
 
     print("Login into nextcloud ..............")
-
+    # TODO - these need to be seperated for correct error logging
     try:
         # log into account
         nextcloud_client.login(username, password)
