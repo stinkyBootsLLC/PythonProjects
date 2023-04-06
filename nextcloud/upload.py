@@ -1,16 +1,38 @@
-# using this library https://pypi.org/project/pyncclient/
-# https://pynative.com/python-list-files-in-a-directory/ 
-# https://unc-libraries-data.github.io/Python/Files_Packages/Files_Packages.html
 import nextcloud_client
 import os
 import config
 import logging
 import sys
 
+
+def upload_files(nextcloud_client, logger):
+
+    print("Uploading files ..............")
+
+    # Get the list of all files and directories
+    files_to_upload = os.listdir(config.local_path)
+    
+    for file in files_to_upload:
+
+        nextcloud_client.put_file(config.remote_path + file, config.local_path + file)
+        logger.info('Uploaded - ' + file) 
+        print('Uploaded - ' + file)
+        # link_info = nc.share_file_with_link('AutoLoaded/' + file)
+        # print("Here is your link: " + link_info.get_link())
+
+    logger.info("complete") 
+    print('complete')
+    
+
 def login_remote_location(username, password, nextcloud_client, logger):
+
+    print("Login into nextcloud ..............")
 
     try:
         nextcloud_client.login(username, password)
+
+        upload_files(nextcloud_client, logger)
+
     except:
         logger.error("could not login for " + username)
         sys.exit("could not login for " + username)
@@ -35,20 +57,7 @@ def main():
 
     login_remote_location(config.username, config.password, nc, logger)
     # nc.mkdir('AutoLoaded')
-    # Get the list of all files and directories
-    files_to_upload = os.listdir(config.local_path)
-
-    for file in files_to_upload:
-
-        nc.put_file(config.remote_path + file, config.local_path + file)
-        logger.info('Uploaded - ' + file) 
-        print('Uploaded - ' + file)
-        # link_info = nc.share_file_with_link('AutoLoaded/' + file)
-        # print("Here is your link: " + link_info.get_link())
-
-    logger.info("complete") 
-    print('complete')
 
 if __name__ == "__main__": 
-	print("Autoloader") 
+	print("Autoloader started ..............") 
 	main() 
