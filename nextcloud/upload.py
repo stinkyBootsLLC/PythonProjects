@@ -54,19 +54,21 @@ def login_remote_location(username, password, nextcloud_client, logger):
     """
 
     print("Login into nextcloud ..............")
-    # TODO - these need to be seperated for correct error logging
+    
     try:
         # log into account
         nextcloud_client.login(username, password)
         print('login complete')
-        # upload files
-        upload_files(nextcloud_client, logger)
-        print('upload complete')
 
     except:
         # log error and exit
         logger.error("could not login for " + username)
         sys.exit("ERROR: could not login for " + username)
+
+    # upload files
+    upload_files(nextcloud_client, logger)
+    print('upload complete')
+
    
 def main():
     """ Main entry to application
