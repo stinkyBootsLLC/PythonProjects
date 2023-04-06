@@ -5,27 +5,50 @@ import nextcloud_client
 import os
 import config
 import logging
+import sys
+
+def login_remote_location(username, password, nextcloud_client, logger):
+
+    try:
+        nextcloud_client.login(username, password)
+    except:
+        logger.error("could not login for " + username)
+        sys.exit("could not login for " + username)
 
 
-logging.basicConfig(filename="script.log", format='%(asctime)s %(message)s', filemode='a') 
-# Create an object 
-logger=logging.getLogger() 
-# Set the threshold of logger to DEBUG 
-logger.setLevel(logging.DEBUG) 
- 
-nc = nextcloud_client.Client(config.next_cloud_location)
-nc.login(config.username, config.password)
-# nc.mkdir('AutoLoaded')
-# Get the list of all files and directories
-files_to_upload = os.listdir(config.local_path)
 
-for file in files_to_upload:
+   
+def main():
+    """
+    Main entry to application
+    """
 
-    nc.put_file(config.remote_path + file, config.local_path + file)
-    logger.info('Uploaded - ' + file) 
-    print('Uploaded - ' + file)
-    # link_info = nc.share_file_with_link('AutoLoaded/' + file)
-    # print("Here is your link: " + link_info.get_link())
+    logging.basicConfig(filename='script.log', filemode='a',
+    format='%(asctime)s - %(msecs)d - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d - %H:%M:%S',level=logging.INFO)
+    # Create an object 
+    logger = logging.getLogger() 
+    # Set the threshold of logger to DEBUG 
+    logger.setLevel(logging.DEBUG) 
+    # create the client object 
+    nc = nextcloud_client.Client(config.next_cloud_location)
 
-logger.info("complete") 
-print('complete')
+    login_remote_location(config.username, config.password, nc, logger)
+    # nc.mkdir('AutoLoaded')
+    # Get the list of all files and directories
+    files_to_upload = os.listdir(config.local_path)
+
+    for file in files_to_upload:
+
+        nc.put_file(config.remote_path + file, config.local_path + file)
+        logger.info('Uploaded - ' + file) 
+        print('Uploaded - ' + file)
+        # link_info = nc.share_file_with_link('AutoLoaded/' + file)
+        # print("Here is your link: " + link_info.get_link())
+
+    logger.info("complete") 
+    print('complete')
+
+if __name__ == "__main__": 
+	print("Autoloader") 
+	main() 
