@@ -24,11 +24,13 @@ def upload_files(nextcloud_client, logger):
         
         for file in files_to_upload:
 
-            nextcloud_client.put_file(config.remote_path + file, config.local_path + file)
-            logger.info('Uploaded - ' + file) 
-            print('Uploaded - ' + file)
-            # link_info = nc.share_file_with_link('AutoLoaded/' + file)
-            # print("Here is your link: " + link_info.get_link())
+            if file != ".DS_Store":
+
+                nextcloud_client.put_file(config.remote_path + file, config.local_path + file)
+                logger.info('Uploaded - ' + file) 
+                print('Uploaded - ' + file)
+                # link_info = nc.share_file_with_link('AutoLoaded/' + file)
+                # print("Here is your link: " + link_info.get_link())
 
         logger.info("upload complete") 
         
