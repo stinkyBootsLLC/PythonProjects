@@ -62,7 +62,7 @@ for i in range(int(courseWeeks)):
     open(assignDoc, "w")
     # go into the LAB folder
     os.chdir("{}/{}/LAB".format(course_root_folder,week))
-    labDoc = "lab{}.docx".format(i + 1)
+    labDoc = "lab_{}.docx".format(i + 1)
     # create a word file in the LAB folder
     open(labDoc, "w")
     # go back up to the course folder
