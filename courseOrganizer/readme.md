@@ -1,41 +1,42 @@
-$project
-========
+# My Course Organizer
 
-$project will solve your problem of where to start with documentation,
-by providing a basic explanation of how to do it easily.
+Simple script to make new course structure for myself when I take a new course.
 
-Look how easy it is to use:
+i.e.
+current directory 
 
-    import project
-    # Get your stuff done
-    project.do_stuff()
+    CMSC405
+    
+        WEEK1
+        
+        ....READ
+        
+        ....ASSIGNMENTS
+                assignment_1.docx
+                
+        ....LAB
+                lab_1.docx
+                
+        ....DISCUSSIONS
+                disscusion_1.docx
+        WEEK2
+        .
+        . to
+        .
+        WEEK(n)
 
-Features
---------
+ Course name and weeks will be a user input.
 
-- Be awesome
-- Make things faster
+## Installation
 
-Installation
-------------
+- Install Course Organizer by running:
 
-Install $project by running:
+    `git clone courseOrganizer`
+    
+- Run Script
 
-    install project
+    `python newCourse.py`
 
-Contribute
-----------
-
-- Issue Tracker: github.com/$project/$project/issues
-- Source Code: github.com/$project/$project
-
-Support
--------
-
-If you are having issues, please let us know.
-We have a mailing list located at: project@google-groups.com
-
-License
--------
+## License
 
 The project is licensed under the BSD license.
