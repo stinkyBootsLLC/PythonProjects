@@ -92,5 +92,5 @@ def main():
     # nc.mkdir('AutoLoaded')
 
 if __name__ == "__main__": 
-	print("Autoloader started ..............") 
+	print("Autoloader started (v.1.0.1)..............") 
 	main() 
