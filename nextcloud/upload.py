@@ -4,6 +4,8 @@ import config
 import logging
 import sys
 
+from datetime import datetime
+
 
 def upload_files(nextcloud_client, logger):
     """ Uploads files to nextcloud instance
@@ -69,7 +71,8 @@ def login_remote_location(username, password, nextcloud_client, logger):
 
     # upload files
     upload_files(nextcloud_client, logger)
-    print('upload complete')
+
+    print('upload complete ........... {}'.format(datetime.now()))
 
    
 def main():
@@ -92,5 +95,5 @@ def main():
     # nc.mkdir('AutoLoaded')
 
 if __name__ == "__main__": 
-	print("Autoloader started (v.1.0.1)..............") 
+	print("Autoloader started (v.1.0.2)..............") 
 	main() 
