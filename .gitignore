@@ -1,4 +1,4 @@
 nextcloud/config.py
 nextcloud/script.log
 __pycache__
-.DS_Store
+**/.DS_Store
