@@ -6,9 +6,13 @@ def get_user_input():
     repo_name = input("Enter Repository Name: ")
     # get group name 
     group_name = input("Enter Group Name: ")
-    print(f'\nYou entered')
+    print()
+    print(f'You entered')
     print(f'Repository Name: {repo_name}')
-    print(f'Group Name: {group_name}\n')
+    print(f'Group Name: {group_name}')
+    print()
+
+    return {"repo": repo_name.lower(), "group": group_name}
 
 
  
@@ -34,10 +38,11 @@ if __name__ == "__main__":
     print()
 
     while True:
-        get_user_input()
+        repo_config = get_user_input()
         correct = input("Is this information correct? (Y or N) ")
         if correct.lower() == 'y':
             print('break loop and create repo')
+            print(repo_config)
             break
 
 
