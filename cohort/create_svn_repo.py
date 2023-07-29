@@ -92,10 +92,10 @@ if __name__ == "__main__":
             if create_directory(repo_details):
                 print(f"Success\nNew Directory: /home/SVN_REPOS/{repo_details['repo']}")
                 # from this point determine git or svn
-                if repo_details['repo'] == "svn":
+                if repo_details['repo'].strip() == "svn":
                     print(f"we need to make a {repo_details['type']} repository")
 
-                elif repo_details['repo'] == "git":
+                elif repo_details['repo'].strip() == "git":
                     print(f"we need to make a {repo_details['type']} repository")
 
                 else:
