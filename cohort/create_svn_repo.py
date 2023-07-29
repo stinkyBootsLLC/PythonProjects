@@ -36,10 +36,12 @@ def create_directory(repo_details):
             # os.mkdir(path)
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
 
-            set_permissions(path) 
+            
             # shutil.chown(path, user, group)
 
             os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
+
+            set_permissions(path) 
 
             is_created = True
   
@@ -47,10 +49,12 @@ def create_directory(repo_details):
         else:
             # os.mkdir(path) 
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
-            set_permissions(path)
+            
             # shutil.chown(path, user, group)
 
             os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
+
+            set_permissions(path)
 
 
 
