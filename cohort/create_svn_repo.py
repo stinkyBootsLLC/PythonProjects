@@ -1,4 +1,30 @@
+import os
+import shutil
 
+# create new dir
+def create_repo(repo_details):
+    is_created = False
+    # Parent Directory path
+    parent_dir = "/Users/eduardo/Desktop/SVNarea"
+    # Path
+    path = os.path.join(parent_dir, repo_details['repo'])
+    try:
+        if os.path.exists(path):
+            os.rmdir(path)
+      
+            # # Delete Folder code
+            # shutil.rmtree(folderPath)
+            os.mkdir(path) 
+            is_created = True
+  
+            print("The folder has been deleted successfully!")
+        else:
+            os.mkdir(path) 
+            is_created = True
+    except OSError as error: 
+        print(error)
+
+    return is_created
 
 # Get user input
 def get_user_input():
@@ -22,7 +48,7 @@ def get_user_input():
 
 
 
-# create new dir
+
 
 # set new dir perm
 
@@ -38,11 +64,13 @@ if __name__ == "__main__":
     print()
 
     while True:
-        repo_config = get_user_input()
+        repo_details = get_user_input()
         correct = input("Is this information correct? (Y or N) ")
         if correct.lower() == 'y':
-            print('break loop and create repo')
-            print(repo_config)
+            
+            if create_repo(repo_details):
+                print('created')
+
             break
 
 
