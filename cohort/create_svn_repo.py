@@ -6,7 +6,7 @@ import subprocess
 def set_permissions(directory_path):
    
     dir_command = 'sudo chmod -R 775 $(find ' + directory_path + ' -type d)'
-    file_command = 'sudo chmod -R 666 $(find ' + directory_path + ' -type f)'
+    file_command = 'sudo find '+ directory_path + ' -type f -exec chmod 666 {} +'
 
  
 
