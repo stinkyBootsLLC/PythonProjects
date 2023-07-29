@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 
-# Set the specified permissions for the directory
+# Set the specified permissions for the new directory
 def set_permissions(directory_path):
    
     dir_command = 'sudo chmod -R 775 $(find ' + directory_path + ' -type d)'
@@ -74,15 +74,18 @@ def get_user_input():
     group_name = input("Enter Group Name: ")
     # get user name
     user_name = input("Enter User Name: ")
+    # what type of repo are we making?
+    repo_type = input("Enter Repo Type: (Git or SVN) ")
 
     print()
     print(f'You entered')
+    print(f'Repository Type: {repo_type}')
     print(f'Repository Name: {repo_name}')
     print(f'Group Name: {group_name}')
     print(f'User Name: {user_name}')
     print()
 
-    return {"repo": repo_name.lower(), "group": group_name, "user": user_name}
+    return {"repo": repo_name.lower(), "group": group_name, "user": user_name, "type": repo_type.lower()}
 
 
 if __name__ == "__main__": 
