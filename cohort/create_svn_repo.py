@@ -5,8 +5,8 @@ import subprocess
 # Set the specified permissions for the directory
 def set_permissions(directory_path):
    
-    dir_command = 'chmod 775 $(find ' + directory_path + ' -type d)'
-    file_command = 'chmod 666 $(find ' + directory_path + ' -type f)'
+    dir_command = 'sudo chmod 775 $(find ' + directory_path + ' -type d)'
+    file_command = 'sudo chmod 666 $(find ' + directory_path + ' -type f)'
 
     os.system(dir_command)
     os.system(file_command)
@@ -30,14 +30,20 @@ def create_directory(repo_details):
             # # Delete Folder code
             # os.rmdir(path) will not delete if there are items inside of it
             shutil.rmtree(path)
-            os.mkdir(path)
-            set_permissions(path, dir_permissions) 
+            # os.mkdir(path)
+            os.system("sudo mkdir " + parent_dir + repo_details['repo'])
+
+
+
+
+            set_permissions(path) 
             shutil.chown(path, user, group)
             is_created = True
   
             print("The folder has been deleted successfully!")
         else:
-            os.mkdir(path) 
+            # os.mkdir(path) 
+            os.system("sudo mkdir " + parent_dir + repo_details['repo'])
             set_permissions(path, dir_permissions)
             shutil.chown(path, user, group)
             is_created = True
