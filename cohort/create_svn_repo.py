@@ -18,7 +18,7 @@ def create_directory(repo_details):
     is_created = False
 
     # gid = grp.getgrnam(repo_details['group']).gr_gid
-    user = repo_details['group']
+    user = 'centospypy'
     group = repo_details['group']
 
     # Parent Directory path
@@ -29,15 +29,16 @@ def create_directory(repo_details):
         if os.path.exists(path):
             # # Delete Folder code
             # os.rmdir(path) will not delete if there are items inside of it
-            shutil.rmtree(path)
+            # shutil.rmtree(path)
+            os.system("sudo rm -rf " + parent_dir + repo_details['repo'])
             # os.mkdir(path)
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
 
-
-
-
             set_permissions(path) 
-            shutil.chown(path, user, group)
+            # shutil.chown(path, user, group)
+
+            os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
+            
             is_created = True
   
             print("The folder has been deleted successfully!")
@@ -45,7 +46,14 @@ def create_directory(repo_details):
             # os.mkdir(path) 
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
             set_permissions(path)
-            shutil.chown(path, user, group)
+            # shutil.chown(path, user, group)
+            sudo chgrp -R geeksforgeeks GFG
+
+            os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
+
+
+
+
             is_created = True
 
     except OSError as error: 
