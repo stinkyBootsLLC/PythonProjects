@@ -20,7 +20,7 @@ def create_directory(repo_details):
     is_created = False
 
     # gid = grp.getgrnam(repo_details['group']).gr_gid
-    user = 'centospypy'
+    user = repo_details['user']
     group = repo_details['group']
 
     # Parent Directory path
@@ -72,13 +72,17 @@ def get_user_input():
     repo_name = input("Enter Repository Name: ")
     # get group name 
     group_name = input("Enter Group Name: ")
+    # get user name
+    user_name = input("Enter User Name: ")
+
     print()
     print(f'You entered')
     print(f'Repository Name: {repo_name}')
     print(f'Group Name: {group_name}')
+    print(f'User Name: {user_name}')
     print()
 
-    return {"repo": repo_name.lower(), "group": group_name}
+    return {"repo": repo_name.lower(), "group": group_name, "user": user_name}
 
 
 if __name__ == "__main__": 
