@@ -44,7 +44,7 @@ def create_directory(repo_details):
         else:
             # os.mkdir(path) 
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
-            set_permissions(path, dir_permissions)
+            set_permissions(path)
             shutil.chown(path, user, group)
             is_created = True
 
