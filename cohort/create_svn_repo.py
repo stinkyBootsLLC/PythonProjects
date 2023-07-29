@@ -5,8 +5,8 @@ import subprocess
 # Set the specified permissions for the directory
 def set_permissions(directory_path):
    
-    dir_command = 'sudo chmod 775 $(find ' + directory_path + ' -type d)'
-    file_command = 'sudo chmod 666 $(find ' + directory_path + ' -type f)'
+    dir_command = 'sudo chmod -R 775 $(find ' + directory_path + ' -type d)'
+    file_command = 'sudo chmod -R 666 $(find ' + directory_path + ' -type f)'
 
     os.system(dir_command)
     os.system(file_command)
