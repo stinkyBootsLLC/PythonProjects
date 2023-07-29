@@ -71,7 +71,7 @@ def get_user_input():
     print(f'User Name: {user_name}')
     print()
 
-    return {"repo": repo_name.lower(), "group": group_name, "user": user_name, "type": repo_type.lower()}
+    return {"repo": repo_name.lower().strip(), "group": group_name.strip(), "user": user_name.strip(), "type": repo_type.lower().strip()}
 
 
 if __name__ == "__main__": 
@@ -92,10 +92,10 @@ if __name__ == "__main__":
             if create_directory(repo_details):
                 print(f"Success\nNew Directory: /home/SVN_REPOS/{repo_details['repo']}")
                 # from this point determine git or svn
-                if repo_details['type'].strip() == "svn":
+                if repo_details['type'] == "svn":
                     print(f"we need to make a {repo_details['type']} repository")
 
-                elif repo_details['type'].strip() == "git":
+                elif repo_details['type'] == "git":
                     print(f"we need to make a {repo_details['type']} repository")
 
                 else:
