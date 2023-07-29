@@ -8,6 +8,8 @@ def set_permissions(directory_path):
     dir_command = 'sudo chmod -R 775 $(find ' + directory_path + ' -type d)'
     file_command = 'sudo chmod -R 666 $(find ' + directory_path + ' -type f)'
 
+ 
+
     os.system(dir_command)
     os.system(file_command)
 
@@ -38,7 +40,7 @@ def create_directory(repo_details):
             # shutil.chown(path, user, group)
 
             os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
-            
+
             is_created = True
   
             print("The folder has been deleted successfully!")
@@ -47,7 +49,6 @@ def create_directory(repo_details):
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
             set_permissions(path)
             # shutil.chown(path, user, group)
-            sudo chgrp -R geeksforgeeks GFG
 
             os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
 
