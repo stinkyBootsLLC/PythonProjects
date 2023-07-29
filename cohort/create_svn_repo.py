@@ -22,7 +22,7 @@ def create_directory(repo_details):
     group = repo_details['group']
 
     # Parent Directory path
-    parent_dir = "/home/SVN_REPOS"
+    parent_dir = "/home/SVN_REPOS/"
     # Path
     path = os.path.join(parent_dir, repo_details['repo'])
     try:
