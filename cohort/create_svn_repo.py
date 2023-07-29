@@ -5,14 +5,8 @@ import subprocess
 # Set the specified permissions for the new directory
 def set_permissions(directory_path):
    
-    dir_command = 'sudo chmod -R 775 $(find ' + directory_path + ' -type d)'
-    file_command = 'sudo find '+ directory_path + ' -type f -exec chmod 666 {} +'
-
- 
-
-    os.system(dir_command)
-    os.system(file_command)
-
+    os.system('sudo chmod -R 775 $(find ' + directory_path + ' -type d)')
+    os.system('sudo find '+ directory_path + ' -type f -exec chmod 666 {} +')
 
 # create new dir
 def create_directory(repo_details):
@@ -27,41 +21,33 @@ def create_directory(repo_details):
     parent_dir = "/home/SVN_REPOS/"
     # Path
     path = os.path.join(parent_dir, repo_details['repo'])
+
     try:
         if os.path.exists(path):
-            # # Delete Folder code
-            # os.rmdir(path) will not delete if there are items inside of it
-            # shutil.rmtree(path)
+
+            # Delete dir
             os.system("sudo rm -rf " + parent_dir + repo_details['repo'])
-            # os.mkdir(path)
+            # Then make a new dir
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
-
-            
-            # shutil.chown(path, user, group)
-
+            # change owner and group
             os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
-
+            # set permission to the new directory
             set_permissions(path) 
-
             is_created = True
-  
             print("The folder has been deleted successfully!")
+
         else:
-            # os.mkdir(path) 
+
+            # make a new dir 
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
-            
-            # shutil.chown(path, user, group)
-
+            # change owner and group
             os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
-
+            # set permission to the new directory
             set_permissions(path)
-
-
-
-
             is_created = True
 
     except OSError as error: 
+
         print(error)
 
     return is_created
@@ -89,6 +75,7 @@ def get_user_input():
 
 
 if __name__ == "__main__": 
+
     print()
     print("............................................................")
     print("............................................................")
@@ -103,7 +90,16 @@ if __name__ == "__main__":
         if correct.lower() == 'y':
             
             if create_directory(repo_details):
-                print('created')
+                print(f"Success\nNew Directory: /home/SVN_REPOS/{repo_details['repo']}")
+                # from this point determine git or svn
+                if repo_details['repo'] == "svn":
+                    print(f"we need to make a {repo_details['type']} repository")
+
+                elif repo_details['repo'] == "git":
+                    print(f"we need to make a {repo_details['type']} repository")
+
+                else:
+                    print(f"ERROR - Unsupported repo type: {repo_details['type']}")
 
             break
 
