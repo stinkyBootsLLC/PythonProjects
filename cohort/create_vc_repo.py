@@ -2,10 +2,18 @@ import os
 import shutil
 import subprocess
 
+"""Initializes a bare Git repository. 
+
+ Args: 
+    repo_name: string
+    
+ Returns: NONE
+
+"""
 def create_git_repo(repo_name):
 
     try:
-        # Initialize a bare Git repository
+        # 
         subprocess.run(["git", "init", "--bare", repo_name], cwd=repo_name, check=True)
         print(f"Git bare repository '{repo_name}' created successfully.")
     except subprocess.CalledProcessError as e:
@@ -14,18 +22,43 @@ def create_git_repo(repo_name):
         print(f"An unexpected error occurred: {ex}")
 
 
-# Set the specified permissions for the new directory
+"""Sets the specified permissions for the new directory. 
+
+ Args: 
+    directory_path: string
+    
+ Returns: NONE
+
+"""
 def set_permissions(directory_path):
 
     os.system(f'sudo chmod -R 775 $(find {directory_path} -type d)')
     os.system(f"sudo find {directory_path} -type f -exec chmod 666 {{}} +")
 
+"""Sets the specified ownership for the new directory. 
 
+ Args: 
+    directory_path: string 
+    user: string 
+    group: string
+    
+ Returns: NONE
+
+"""
 def change_ownership(directory_path, user, group):
 
     os.system(f"sudo chown -R {user}:{group}  {directory_path}")
 
-# create new dir
+"""Configures a new directory. 
+
+ Args: 
+    repo_details: dictionary
+    path: string
+
+ Returns:
+    is_created: Boolean
+
+"""
 def config_directory(repo_details, path):
 
     is_created = False
@@ -61,7 +94,13 @@ def config_directory(repo_details, path):
 
     return is_created
 
-# Get user input
+
+"""Gets the user input.
+
+ Args: NONE
+ Returns: NONE
+
+"""
 def get_user_input():
     # get repo name
     repo_name = input("Enter Repository Name: ")
@@ -84,8 +123,6 @@ def get_user_input():
 
 
 if __name__ == "__main__": 
-
-
 
     print()
     print("............................................................")
