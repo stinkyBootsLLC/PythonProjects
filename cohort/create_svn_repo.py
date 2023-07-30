@@ -6,7 +6,7 @@ import subprocess
 def set_permissions(directory_path):
 
     os.system(f'sudo chmod -R 775 $(find {directory_path} -type d)')
-    os.system(f'sudo find {directory_path} -type f -exec chmod 666 {} +')
+    os.system(f"sudo find {directory_path} -type f -exec chmod 666 {{}} +")
 
 
 def change_ownership(directory_path, user, group):
