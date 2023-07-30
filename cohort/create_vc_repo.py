@@ -103,7 +103,7 @@ if __name__ == "__main__":
         if correct.lower() == 'y':
 
             # Parent Directory path
-            parent_dir = "/data/data/version_control"
+            parent_dir = "/data/data/version_control/"
             # new repo path
             complete_path = os.path.join(parent_dir, repo_details['repo'])
 
