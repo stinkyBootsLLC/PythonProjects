@@ -4,22 +4,23 @@ import subprocess
 
 # Set the specified permissions for the new directory
 def set_permissions(directory_path):
-   
+
     os.system('sudo chmod -R 775 $(find ' + directory_path + ' -type d)')
     os.system('sudo find '+ directory_path + ' -type f -exec chmod 666 {} +')
 
+
+def change_ownership(directory_path, user, group):
+
+    os.system(f"sudo chown -R {user}:{group}  {directory_path}")
+
 # create new dir
-def create_directory(repo_details):
+def config_directory(repo_details):
 
     is_created = False
 
-    # gid = grp.getgrnam(repo_details['group']).gr_gid
-    user = repo_details['user']
-    group = repo_details['group']
-
     # Parent Directory path
     parent_dir = "/home/SVN_REPOS/"
-    # Path
+    # new repo path
     path = os.path.join(parent_dir, repo_details['repo'])
 
     try:
@@ -30,18 +31,19 @@ def create_directory(repo_details):
             # Then make a new dir
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
             # change owner and group
-            os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
+            change_ownership(path, repo_details['user'], repo_details['group'])
             # set permission to the new directory
             set_permissions(path) 
             is_created = True
-            print("The folder has been deleted successfully!")
+            # log event
+            print(f"Previous directory:  {path} existed and was deleted")
 
         else:
 
             # make a new dir 
             os.system("sudo mkdir " + parent_dir + repo_details['repo'])
             # change owner and group
-            os.system("sudo chown -R "  + user + ":" + group + " " + parent_dir + repo_details['repo'] )
+            change_ownership(path, repo_details['user'], repo_details['group'])
             # set permission to the new directory
             set_permissions(path)
             is_created = True
@@ -76,6 +78,8 @@ def get_user_input():
 
 if __name__ == "__main__": 
 
+
+
     print()
     print("............................................................")
     print("............................................................")
@@ -85,11 +89,14 @@ if __name__ == "__main__":
     print()
 
     while True:
+
         repo_details = get_user_input()
         correct = input("Is this information correct? (Y or N) ")
+
         if correct.lower() == 'y':
+
             
-            if create_directory(repo_details):
+            if config_directory(repo_details):
                 print(f"Success\nNew Directory: /home/SVN_REPOS/{repo_details['repo']}")
                 # from this point determine git or svn
                 if repo_details['type'] == "svn":
