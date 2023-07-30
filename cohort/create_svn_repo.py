@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
                 elif repo_details['type'] == "git":
                     print(f"we need to make a {repo_details['type']} repository")
-                    create_git_repo(complete_path):
+                    create_git_repo(complete_path)
 
                 else:
                     print(f"ERROR - Unsupported repo type: {repo_details['type']}")
