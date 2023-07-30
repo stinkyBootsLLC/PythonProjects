@@ -2,6 +2,10 @@ import os
 import shutil
 import subprocess
 
+def create_git_repo(repo_name):
+    # Initialize a bare Git repository
+    subprocess.run(["git", "init", "--bare", repo_name], cwd=repo_name, check=True)
+
 # Set the specified permissions for the new directory
 def set_permissions(directory_path):
 
@@ -14,14 +18,14 @@ def change_ownership(directory_path, user, group):
     os.system(f"sudo chown -R {user}:{group}  {directory_path}")
 
 # create new dir
-def config_directory(repo_details):
+def config_directory(repo_details, path):
 
     is_created = False
 
-    # Parent Directory path
-    parent_dir = "/home/SVN_REPOS/"
-    # new repo path
-    path = os.path.join(parent_dir, repo_details['repo'])
+    # # Parent Directory path
+    # parent_dir = "/home/SVN_REPOS/"
+    # # new repo path
+    # path = os.path.join(parent_dir, repo_details['repo'])
 
     try:
         if os.path.exists(path):
@@ -93,17 +97,23 @@ if __name__ == "__main__":
         repo_details = get_user_input()
         correct = input("Is this information correct? (Y or N) ")
 
+        # Parent Directory path
+        parent_dir = "/home/SVN_REPOS/"
+        # new repo path
+        complete_path = os.path.join(parent_dir, repo_details['repo'])
+
         if correct.lower() == 'y':
 
             
-            if config_directory(repo_details):
-                print(f"Success\nNew Directory: /home/SVN_REPOS/{repo_details['repo']}")
+            if config_directory(repo_details, complete_path):
+                print(f"Success - New Directory: /home/SVN_REPOS/{repo_details['repo']}")
                 # from this point determine git or svn
                 if repo_details['type'] == "svn":
                     print(f"we need to make a {repo_details['type']} repository")
 
                 elif repo_details['type'] == "git":
                     print(f"we need to make a {repo_details['type']} repository")
+                    create_git_repo(complete_path):
 
                 else:
                     print(f"ERROR - Unsupported repo type: {repo_details['type']}")
