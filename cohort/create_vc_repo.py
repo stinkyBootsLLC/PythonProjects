@@ -13,7 +13,6 @@ import subprocess
 def create_git_repo(repo_name):
 
     try:
-        # 
         subprocess.run(["git", "init", "--bare", repo_name], cwd=repo_name, check=True)
         print(f"Git bare repository '{repo_name}' created successfully.")
     except subprocess.CalledProcessError as e:
