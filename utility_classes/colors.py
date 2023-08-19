@@ -1,10 +1,16 @@
 class colors:
-	'''Colors class:reset all colors with colors.reset; two
+	"""
+	Colors class:reset all colors with colors.reset; two
 	sub classes fg for foreground
 	and bg for background; use as colors.subclass.colorname.
 	i.e. colors.fg.red or colors.bg.greenalso, the generic bold, disable,
 	underline, reverse, strike through,
-	and invisible work with the main class i.e. colors.bold'''
+	and invisible work with the main class i.e. colors.bold
+
+	Print Colors in Python terminal
+	https://www.geeksforgeeks.org/print-colors-python-terminal/
+	
+	"""
 	reset = '\033[0m'   
 	bold = '\033[01m'
 	disable = '\033[02m'
@@ -40,8 +46,6 @@ class colors:
 		cyan = '\033[46m'
 		lightgrey = '\033[47m'
 
-# print(colors.bg.green, "SKk", colors.fg.red, "Amartya")
-# print(colors.bg.lightgrey, "SKk", colors.fg.red, "Amartya")
 print(colors.fg.red, "ERROR STATEMENT", colors.reset)
 print(colors.fg.yellow, "WARNING STATEMENT", colors.reset)
 print(colors.fg.green, "SUCCESS STATEMENT", colors.reset)
