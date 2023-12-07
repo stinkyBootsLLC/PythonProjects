@@ -85,7 +85,7 @@ def main(new_repo_name):
 
         added_file = add_file((new_git_path / "README.md"), (f"# {new_repo_name}"))
 
-        added_file = add_file((new_git_path / ".gitignore"), "\n".join(["__pycache__", "*.txt", "*.ksh"]))
+        added_file = add_file((new_git_path / ".gitignore"), "\n".join(["__pycache__", "*.txt", "**/.DS_Store"]))
 
         # init the new dir as a git repo
         if added_file:
