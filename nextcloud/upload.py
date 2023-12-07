@@ -1,19 +1,13 @@
-import nextcloud_client
-import os
-import config
-import logging
-import sys
+import nextcloud_client, os, config, logging, sys
 
 from datetime import datetime
 
-
-def upload_files(nextcloud_client, logger):
+def upload_files(nextcloud_client):
     """ Uploads files to nextcloud instance
 
     Parameters
     ----------
     nextcloud_client : (nextcloud_client) The nextcloud client object
-    logger : (logging) The logging object
     """
 
     print("Uploading files ..............")
@@ -27,18 +21,18 @@ def upload_files(nextcloud_client, logger):
             if file != ".DS_Store":
 
                 nextcloud_client.put_file(config.remote_path + file, config.local_path + file)
-                logger.info('Uploaded - ' + file) 
+                logging.info('Uploaded - ' + file) 
                 print('Uploaded - ' + file)
 
-        logger.info("upload complete") 
+        logging.info("upload complete") 
         
     except:
         # log error and exit
-        logger.error("files NOT uploaded")
+        logging.error("files NOT uploaded")
         sys.exit("\033[31mERROR: files NOT uploaded\033[0m")
     
 
-def login_remote_location(username, password, nextcloud_client, logger):
+def login_remote_location(username, password, nextcloud_client):
     """ Logs into nextcloud instance
     
         Parameters
@@ -46,7 +40,6 @@ def login_remote_location(username, password, nextcloud_client, logger):
         username : (str) The user's username
         password : (str) The user's password
         nextcloud_client : (nextcloud_client) The nextcloud client object
-        logger : (logging) The logging object
     """
 
     print("Login into nextcloud ..............")
@@ -54,39 +47,35 @@ def login_remote_location(username, password, nextcloud_client, logger):
     try:
         # log into account
         nextcloud_client.login(username, password)
-        print('login complete')
+        logging.info('login complete')
 
     except:
         # log error and exit
-        logger.error("could not login for " + username)
+        logging.error("could not login for " + username)
         sys.exit("\033[31mERROR: could not login for \033[0m" + username)
 
     # upload files
-    upload_files(nextcloud_client, logger)
+    upload_files(nextcloud_client)
 
     print('\033[32mupload complete ........... {}\033[0m'.format(datetime.now()))
 
    
 def main():
     """ Main entry to application """
-    # set logger configuration
-    logging.basicConfig(filename='script.log', filemode='a',
-    format='%(asctime)s - %(msecs)d - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d - %H:%M:%S',level=logging.INFO)
-    # Create an object 
-    logger = logging.getLogger() 
-    # Set the threshold of logger to DEBUG 
-    logger.setLevel(logging.DEBUG) 
-    # create the nextcloud client object 
+
+    print("""
+    .........................................
+    ...... \033[34mAutoloader started (v.1.0.4)\033[0m .....
+    .........................................
+    """)
+
     nc = nextcloud_client.Client(config.next_cloud_location)
     # call function
-    login_remote_location(config.username, config.password, nc, logger)
+    login_remote_location(config.username, config.password, nc)
     
 
 if __name__ == "__main__": 
-	print("""
-        .........................................
-        ...... \033[34mAutoloader started (v.1.0.3)\033[0m .....
-        .........................................
-        """) 
-	main() 
+  
+    logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', filename='upload.log',level=logging.DEBUG)
+
+    main()
