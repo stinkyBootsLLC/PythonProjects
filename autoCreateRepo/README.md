@@ -6,6 +6,10 @@ wip
 
 ## Getting Started
 
+Download file `create_git_repo.py`
+
+### Quick Start
+
 Create a new repository in the current directory
 
 ```
