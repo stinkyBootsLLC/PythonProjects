@@ -54,10 +54,10 @@ def add_file(file_path, content):
 
 
 
-def display_message():
+def display_message(new_repo_name):
     """ Displays message """
      
-    print(""" 
+    print(f""" 
         ............................................................
         ............................................................
         ...................... Version Control .....................
@@ -65,40 +65,42 @@ def display_message():
         ........................ 2023 v.1.0.0 ......................
         ............................................................
         ............................................................
+
+        NEW PROJECT CREATED: {new_repo_name}
     """)
 
-def main(new_repo_name):
+def main(new_repo_name, alt_repo_name=None):
     """Main script entry.
 
     Args:
-    new_repo_name (parsed argument): New repository name  
+    new_repo_name (parsed argument): New repository name
+    alt_repo_name (optional parsed argument): New repository name (alternate location)
 
-    """    
-
-    new_git_path = Path.cwd().absolute() / new_repo_name
-
-    print(type(new_git_path))
+    """
+    if alt_repo_name:
+        new_git_path = Path(alt_repo_name)
+    else:
+        new_git_path = Path.cwd().absolute() / new_repo_name
 
     if create_directory(new_git_path):
-
-        display_message()
 
         added_file = add_file((new_git_path / "README.md"), (f"# {new_repo_name}"))
 
         added_file = add_file((new_git_path / ".gitignore"), "\n".join(["__pycache__", "*.txt", "**/.DS_Store"]))
 
-        # init the new dir as a git repo
+        
         if added_file:
-
+            # init the new dir as a git repo
             commands = [
                 ["git", "-C", new_repo_name, "init"],
                 ["git", "-C", new_repo_name, "add", "--all"],
                 ["git", "-C", new_repo_name, "commit", "-m", "init commit"],
             ]
-
             # run all the commands
             for command in commands:
                 subprocess.run(command, check=True, timeout=60)
+
+            display_message(new_git_path)
 
         else:
             print("Files not added")
@@ -109,18 +111,29 @@ def main(new_repo_name):
             
 if __name__ == "__main__":
 
-    # passing in arguments in command line
+    # passing in arguments from command line
     parser = argparse.ArgumentParser()
-    # python create_vc_repo.py --repository_name newrepoproject
-    # or
-    # python create_vc_repo.py -rN newrepoproject
+
     parser.add_argument("--repository_name", "-rN", type=str)
+    """Reguired Argument [ --repository_name, -rN ] The new directory to create the GIT repo (Current Directory)"""
+
+    parser.add_argument("--alt_repository_name", "-aRN", type=str)
+    """Optional Argument [ --alt_repository_name, -aRN ] Provide an alternate directory """
 
     args = parser.parse_args()
 
     try:
+        if args.repository_name:
 
-        main(args.repository_name)
+            main(args.repository_name)
+
+        elif args.alt_repository_name:
+
+            main(args.alt_repository_name)
+
+        else:
+
+            raise Exception("Repository Name was not provided?")
 
     except Exception as ex:
 
