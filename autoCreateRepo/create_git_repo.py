@@ -67,6 +67,8 @@ def display_message(new_repo_name):
         ............................................................
 
         NEW PROJECT CREATED: {new_repo_name}
+
+
     """)
 
 def main(new_repo_name, alt_repo_name=None):
@@ -88,14 +90,15 @@ def main(new_repo_name, alt_repo_name=None):
 
         added_file = add_file((new_git_path / ".gitignore"), "\n".join(["__pycache__", "*.txt", "**/.DS_Store"]))
 
-        
+        # init the new dir as a git repo
         if added_file:
-            # init the new dir as a git repo
+
             commands = [
                 ["git", "-C", new_repo_name, "init"],
                 ["git", "-C", new_repo_name, "add", "--all"],
                 ["git", "-C", new_repo_name, "commit", "-m", "init commit"],
             ]
+
             # run all the commands
             for command in commands:
                 subprocess.run(command, check=True, timeout=60)
@@ -111,9 +114,9 @@ def main(new_repo_name, alt_repo_name=None):
             
 if __name__ == "__main__":
 
-    # passing in arguments from command line
+    # passing in arguments in command line
     parser = argparse.ArgumentParser()
-
+    
     parser.add_argument("--repository_name", "-rN", type=str)
     """Reguired Argument [ --repository_name, -rN ] The new directory to create the GIT repo (Current Directory)"""
 
