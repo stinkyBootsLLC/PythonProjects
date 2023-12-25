@@ -12,7 +12,7 @@ Download file `https://github.com/stinkyBootsLLC/PythonProjects/blob/main/autoCr
 
 ### Quick Start
 
-Create a new repository in the current directory
+To Create a new repository in the current directory
 
 ```
 python create_vc_repo.py --repository_name <newrepoproject>
@@ -20,7 +20,7 @@ python create_vc_repo.py --repository_name <newrepoproject>
 python create_vc_repo.py -rN <newrepoproject> 
 ```
 
-Create a new repository in an alternate directory 
+To Create a new repository in an alternate directory 
 
 ```
 python create_vc_repo.py --alt_repository_name <path/to/new/project>
