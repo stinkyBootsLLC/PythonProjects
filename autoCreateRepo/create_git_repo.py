@@ -52,10 +52,8 @@ def add_file(file_path, content):
             
     return is_added
 
-
-
-def display_message(new_repo_name):
-    """ Displays message """
+def display_welcome_message():
+    """ Displays welcome message """
      
     print(f""" 
         ............................................................
@@ -65,11 +63,14 @@ def display_message(new_repo_name):
         ........................ 2023 v.1.0.0 ......................
         ............................................................
         ............................................................
-
-        NEW PROJECT CREATED: {new_repo_name}
-
-
     """)
+
+
+
+def display_success_message(new_repo_name):
+    """ Displays success message """
+     
+    print(f"NEW PROJECT CREATED: {new_repo_name}")
 
 def main(new_repo_name, alt_repo_name=None):
     """Main script entry.
@@ -103,7 +104,7 @@ def main(new_repo_name, alt_repo_name=None):
             for command in commands:
                 subprocess.run(command, check=True, timeout=60)
 
-            display_message(new_git_path)
+            display_success_message(new_git_path)
 
         else:
             print("Files not added")
@@ -116,7 +117,7 @@ if __name__ == "__main__":
 
     # passing in arguments in command line
     parser = argparse.ArgumentParser()
-    
+
     parser.add_argument("--repository_name", "-rN", type=str)
     """Reguired Argument [ --repository_name, -rN ] The new directory to create the GIT repo (Current Directory)"""
 
