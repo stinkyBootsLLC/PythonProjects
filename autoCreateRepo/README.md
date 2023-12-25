@@ -6,7 +6,9 @@ wip
 
 ## Getting Started
 
-Download file `create_git_repo.py`
+### Installation
+
+Download file `https://github.com/stinkyBootsLLC/PythonProjects/blob/main/autoCreateRepo/create_git_repo.py`
 
 ### Quick Start
 
