@@ -15,15 +15,15 @@ Download file `https://github.com/stinkyBootsLLC/PythonProjects/blob/main/autoCr
 To Create a new repository in the current directory
 
 ```
-python create_vc_repo.py --repository_name <newrepoproject>
+python create_vc_repo.py --repository_name <new_repo_name>
 # or
-python create_vc_repo.py -rN <newrepoproject> 
+python create_vc_repo.py -rN <new_repo_name> 
 ```
 
 To Create a new repository in an alternate directory 
 
 ```
-python create_vc_repo.py --alt_repository_name <path/to/new/project>
+python create_vc_repo.py --alt_repository_name <path/to/new/repo>
 # or
 python create_vc_repo.py -aRN <path/to/new/project> 
 ```
