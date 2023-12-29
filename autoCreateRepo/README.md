@@ -52,4 +52,4 @@ python create_vc_repo.py -aRN <path/to/new/project>
 
 ## License
 
-This project is licensed under the [The Unlicense](https://choosealicense.com/licenses/unlicense/).
+This project is licensed under the [The Unlicense](https://unlicense.org/).
