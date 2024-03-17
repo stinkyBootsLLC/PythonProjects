@@ -16,7 +16,7 @@ def get_logger():
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     # create file handler which logs even debug messages
-    fh = logging.FileHandler(log_file_location, "w", "utf-8")
+    fh = logging.FileHandler(log_file_location)
     fh.setLevel(logging.DEBUG)
     # create console handler with a higher log level
     ch = logging.StreamHandler()
@@ -56,6 +56,9 @@ def upload_files(next_cl):
               
                 print('Uploaded - ' + file)
                 logger.info('Uploaded - %s', file)
+
+        logger.info("upload complete ........... ")
+        print(f'\033[32mupload complete ........... {datetime.now()}\033[0m')
         
     except Exception as ex:
         # log error and exit
@@ -79,6 +82,8 @@ def login_remote_location(username, password, next_cl):
     try:
         # log into account
         next_cl.login(username, password)
+        # upload files
+        upload_files(next_cl)
       
     except Exception as ex:
         print()
@@ -87,10 +92,10 @@ def login_remote_location(username, password, next_cl):
         sys.exit("\033[31mERROR: could not login for \033[0m" + username)
         
 
-    # upload files
-    upload_files(next_cl)
 
-    print(f'\033[32mupload complete ........... {datetime.now()}\033[0m')
+
+    
+
 
 def main():
     """ Main entry to application """
