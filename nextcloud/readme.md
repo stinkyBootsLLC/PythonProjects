@@ -14,6 +14,7 @@ password = "<nextcloud password>"
 next_cloud_location = ""
 local_path = "" # a directory on my laptop
 remote_path = "" # a directory in nextcloud
+log_file = "" # path/to/logfile.log
 ```
 config.py
 
