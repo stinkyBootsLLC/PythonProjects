@@ -34,8 +34,6 @@ def get_logger():
         logger.addHandler(ch)
     return logger
 
-
-
 def upload_files(next_cl):
     """ Uploads files to nextcloud instance
 
@@ -66,7 +64,7 @@ def upload_files(next_cl):
         
     except Exception as ex:
         # log error and exit
-        logger.error('ERROR: files NOT uploaded %s', ex)
+        logger.error('files NOT uploaded: %s', ex)
         sys.exit("\033[31mERROR: files NOT uploaded\033[0m")
 
 def login_remote_location(username, password, next_cl):
@@ -90,8 +88,8 @@ def login_remote_location(username, password, next_cl):
       
     except Exception as ex:
         print()
-        logger.error("ERROR: %s", ex)
-        logger.error("ERROR: could not login for %s", username)
+        logger.error(ex)
+        logger.error("could not login for %s", username)
         sys.exit("\033[31mERROR: could not login for \033[0m" + username)
         
 def main():
