@@ -1,16 +1,48 @@
-import nextcloud_client, os, config, logging, sys
-
+"""_summary_ """
+import os
+import sys
+import logging
 from datetime import datetime
+import nextcloud_client
+import config
 
-def upload_files(nextcloud_client):
+def get_logger():
+    """_summary_
+
+    Returns:
+        logger: logger
+    """
+    log_file_location = config.log_file 
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler(log_file_location, "w", "utf-8")
+    fh.setLevel(logging.DEBUG)
+    # create console handler with a higher log level
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.ERROR)
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+    # add the handlers to the logger
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+    return logger
+
+
+
+def upload_files(next_cl):
     """ Uploads files to nextcloud instance
 
     Parameters
     ----------
     nextcloud_client : (nextcloud_client) The nextcloud client object
     """
-
+    logger = get_logger()
+    
     print("Uploading files ..............")
+    logger.info('Uploading files ...')
 
     try:
         # Get the list of all files and directories
@@ -20,19 +52,18 @@ def upload_files(nextcloud_client):
 
             if file != ".DS_Store":
 
-                nextcloud_client.put_file(config.remote_path + file, config.local_path + file)
-                logging.info('Uploaded - ' + file) 
+                next_cl.put_file(config.remote_path + file, config.local_path + file)
+              
                 print('Uploaded - ' + file)
-
-        logging.info("upload complete") 
+                logger.info('Uploaded - %s', file)
         
-    except:
+    except Exception as ex:
         # log error and exit
-        logging.error("files NOT uploaded")
+        logger.error('ERROR: files NOT uploaded %s', ex)
         sys.exit("\033[31mERROR: files NOT uploaded\033[0m")
     
 
-def login_remote_location(username, password, nextcloud_client):
+def login_remote_location(username, password, next_cl):
     """ Logs into nextcloud instance
     
         Parameters
@@ -41,25 +72,26 @@ def login_remote_location(username, password, nextcloud_client):
         password : (str) The user's password
         nextcloud_client : (nextcloud_client) The nextcloud client object
     """
-
+    logger = get_logger()
     print("Login into nextcloud ..............")
+    logger.info("Login into nextcloud ..............")
     
     try:
         # log into account
-        nextcloud_client.login(username, password)
-        logging.info('login complete')
-
-    except:
-        # log error and exit
-        logging.error("could not login for " + username)
+        next_cl.login(username, password)
+      
+    except Exception as ex:
+        print()
+        logger.error("ERROR: %s", ex)
+        logger.error("ERROR: could not login for %s", username)
         sys.exit("\033[31mERROR: could not login for \033[0m" + username)
+        
 
     # upload files
-    upload_files(nextcloud_client)
+    upload_files(next_cl)
 
-    print('\033[32mupload complete ........... {}\033[0m'.format(datetime.now()))
+    print(f'\033[32mupload complete ........... {datetime.now()}\033[0m')
 
-   
 def main():
     """ Main entry to application """
 
@@ -72,10 +104,7 @@ def main():
     nc = nextcloud_client.Client(config.next_cloud_location)
     # call function
     login_remote_location(config.username, config.password, nc)
-    
 
-if __name__ == "__main__": 
-  
-    logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', filename='upload.log',level=logging.DEBUG)
+if __name__ == "__main__":
 
     main()
